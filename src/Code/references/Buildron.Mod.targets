@@ -1,0 +1,25 @@
+ <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"> 
+      <Target Name="AfterBuild">
+          <ItemGroup> 
+              <FilesToCopy Include="$(MSBuildProjectDirectory)\bin\$(Configuration)\**\*" Exclude="$(MSBuildProjectDirectory)\bin\$(Configuration)\Unity*.dll" />
+          </ItemGroup>
+ 	
+          <Message Text="### Copying $(MSBuildProjectName) files ..." Importance="high" />
+          
+          <!-- Copy mod assemblies to mod Unity3d project -->
+          <Copy
+              SourceFiles="@(FilesToCopy)"
+              DestinationFiles="@(FilesToCopy->'$(MSBuildProjectDirectory)\..\..\Unity\$(MSBuildProjectName)\Assets\Scripts\references\%(RecursiveDir)%(Filename)%(Extension)')"/> 
+
+            <!-- Copy mod assemblies to Buildron "Mods" folder -->
+            <Copy 
+                Condition="'$(Configuration)' == 'linux'" SourceFiles="@(FilesToCopy)" DestinationFiles="@(FilesToCopy->'$(MSBuildProjectDirectory)\..\..\..\build\linux\Mods\$(MSBuildProjectName)\%(RecursiveDir)%(Filename)%(Extension)')"/>  
+                
+            <Copy 
+                Condition="'$(Configuration)' == 'mac'" SourceFiles="@(FilesToCopy)" DestinationFiles="@(FilesToCopy->'$(MSBuildProjectDirectory)\..\..\..\build\mac\Buildron.app\Mods\$(MSBuildProjectName)\%(RecursiveDir)%(Filename)%(Extension)')"/>  
+
+            <Copy 
+                Condition="'$(Configuration)' == 'win'" SourceFiles="@(FilesToCopy)" DestinationFiles="@(FilesToCopy->'$(MSBuildProjectDirectory)\..\..\..\build\win\Mods\$(MSBuildProjectName)\%(RecursiveDir)%(Filename)%(Extension)')"/>  
+                 
+    </Target>
+</Project>

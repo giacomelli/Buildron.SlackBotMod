@@ -1,0 +1,102 @@
+ManifestFileVersion: 0
+CRC: 3703722345
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 5704f997dc2a46b446a64e876ff2e16a
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 50d6066c01d45118aa1c19730654023e
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 12
+  Script: {instanceID: 0}
+- Class: 15
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 26
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 54
+  Script: {instanceID: 0}
+- Class: 82
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 1980459831, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: -111349563, guid: a3646ea8c53c6ec448c7c9d27568d982, type: 3}
+- Class: 114
+  Script: {fileID: 1977646725, guid: a3646ea8c53c6ec448c7c9d27568d982, type: 3}
+- Class: 114
+  Script: {fileID: -1920082196, guid: a3646ea8c53c6ec448c7c9d27568d982, type: 3}
+- Class: 114
+  Script: {fileID: 1619329475, guid: a3646ea8c53c6ec448c7c9d27568d982, type: 3}
+- Class: 114
+  Script: {fileID: 1701217436, guid: a3646ea8c53c6ec448c7c9d27568d982, type: 3}
+- Class: 114
+  Script: {fileID: 1429903808, guid: a3646ea8c53c6ec448c7c9d27568d982, type: 3}
+- Class: 114
+  Script: {fileID: -1071824857, guid: a3646ea8c53c6ec448c7c9d27568d982, type: 3}
+- Class: 114
+  Script: {fileID: 1363015578, guid: 0e1ff0bc58a6fba4fa0fd0927f595d1a, type: 3}
+- Class: 114
+  Script: {fileID: -1557964980, guid: 0e1ff0bc58a6fba4fa0fd0927f595d1a, type: 3}
+- Class: 114
+  Script: {fileID: -1716056047, guid: 0e1ff0bc58a6fba4fa0fd0927f595d1a, type: 3}
+- Class: 114
+  Script: {fileID: 1078145487, guid: 0e1ff0bc58a6fba4fa0fd0927f595d1a, type: 3}
+- Class: 114
+  Script: {fileID: 202153406, guid: 1e234acf5977c284bb37c82c6c3558e6, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 128
+  Script: {instanceID: 0}
+- Class: 134
+  Script: {instanceID: 0}
+- Class: 135
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 222
+  Script: {instanceID: 0}
+- Class: 223
+  Script: {instanceID: 0}
+- Class: 224
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/BuildSuccessFireworksPrefab.prefab
+- Assets/Resources/BuildPrefab.prefab
+- Assets/Resources/BuildFailedExplosionPrefab.prefab
+- Assets/Resources/BuildHistoryController.prefab
+- Assets/Resources/BuildHidingEffectPrefab.prefab
+- Assets/Textures/BuildStepType/CodeAnalysis.png
+- Assets/Resources/BuildsDeployController.prefab
+- Assets/Resources/BuildsController.prefab
+- Assets/Resources/Infrastructure.prefab
+- Assets/Textures/BuildStepType/Deploy.png
+- Assets/Materials/Detonator/Burninating.prefab
+Dependencies: []
