@@ -19,6 +19,7 @@ namespace Giacomelli.Buildron.SlackBot
 
 			context.CIServerConnected += (sender, e) =>
 			{
+				context.GameObjects.Create<UnityMainThreadDispatcher>();
 				context.GameObjects.Create<BotController>();
 			};
         }
