@@ -10,8 +10,12 @@ namespace Giacomelli.Buildron.SlackBot
         {
 			Context = context;
 
-			//xoxb-80789644979-uQMlJbghIvWZkXVQJP9eQrWg
-			context.Preferences.Register(new Preference("Token", "Slack key", PreferenceKind.String, string.Empty));
+			context.Preferences.Register(
+				new Preference("Token", "Slack key", PreferenceKind.String, string.Empty),
+				new Preference("Channel", "Channel", PreferenceKind.String, "general"),
+				new Preference("NotifyRunning", "Notify running", PreferenceKind.Bool, false),
+				new Preference("NotifyFailed", "Notify failed", PreferenceKind.Bool, true),
+				new Preference("NotifySuccess", "Notify success", PreferenceKind.Bool, true));
 
 			context.CIServerConnected += (sender, e) =>
 			{
