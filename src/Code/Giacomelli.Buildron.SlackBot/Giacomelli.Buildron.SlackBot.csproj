@@ -80,6 +80,8 @@
     <Compile Include="MessageHandlers\RegexMessageHandlerBase.cs" />
     <Compile Include="MessageHandlers\HelpMessageHandler.cs" />
     <Compile Include="MessageHandlers\MessageHandlerService.cs" />
+    <Compile Include="MessageHandlers\SortByMessageHandler.cs" />
+    <Compile Include="MessageHandlers\ShellSortingAlgorithm.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

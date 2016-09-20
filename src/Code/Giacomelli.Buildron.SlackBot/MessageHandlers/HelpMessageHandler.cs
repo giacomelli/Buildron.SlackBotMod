@@ -25,7 +25,7 @@ namespace Giacomelli.Buildron.SlackBot
 		{
 			var handlers = MessageHandlerService.GetMessageHandlers(ModContext, Slack);
 			var msg = new StringBuilder();
-			msg.AppendLine("Available commands:");
+			msg.AppendLine("Available messages:");
 
 			foreach (var h in handlers)
 			{
