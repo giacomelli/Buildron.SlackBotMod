@@ -53,28 +53,35 @@ namespace Giacomelli.Buildron.SlackBot
 		{
 			m_modContext.BuildStatusChanged += (sender, e) =>
 			{
-				var b = e.Build;
-
-				if (b.Status == e.PreviousStatus)
+				try
 				{
-					return;
+					var b = e.Build;
+
+					if (b.Status == e.PreviousStatus)
+					{
+						return;
+					}
+
+					if ((m_notifyRunning && b.Status == BuildStatus.Running)
+						|| (m_notifyFailed && b.IsFailed())
+						|| (m_notifySuccess && b.IsSuccess()))
+					{
+						var reason = b.Status == BuildStatus.Running
+									  ? ": {0}".With(b.LastChangeDescription)
+									  : string.Empty;
+						m_slack.SendToDefaultChannel(
+							"{0} - {1} {2} by {3} at {4:HH:mm}{5}".With(
+							b.Configuration.Project.Name,
+							b.Configuration.Name,
+							b.Status.ToString().ToLowerInvariant(),
+							b.TriggeredBy,
+							DateTime.Now,
+								reason));
+					}
 				}
-
-				if ((m_notifyRunning && b.Status == BuildStatus.Running)
-					|| (m_notifyFailed && b.IsFailed())
-					|| (m_notifySuccess && b.IsSuccess()))
+				catch (Exception ex)
 				{
-					var reason = b.Status == BuildStatus.Running
-								  ? ": {0}".With(b.LastChangeDescription)
-								  : string.Empty;
-					m_slack.SendToDefaultChannel(
-						"{0} - {1} {2} by {3} at {4:HH:mm}{5}".With(
-						b.Configuration.Project.Name,
-						b.Configuration.Name,
-						b.Status.ToString().ToLowerInvariant(),
-						b.TriggeredBy,
-						DateTime.Now,
-							reason));
+					m_log.Error("Error while trying to send build status change message: {0}. {1}", ex.Message, ex.StackTrace);
 				}
 			};
 		}

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using Buildron.Domain.Mods;
@@ -23,7 +24,10 @@ namespace Giacomelli.Buildron.SlackBot
 
 		protected override string CreateMessage(Match match)
 		{
-			var handlers = MessageHandlerService.GetMessageHandlers(ModContext, Slack);
+			var handlers = MessageHandlerService
+				.GetMessageHandlers(ModContext, Slack)
+				.OrderBy(m => m.Description);
+			
 			var msg = new StringBuilder();
 			msg.AppendLine("Available messages:");
 

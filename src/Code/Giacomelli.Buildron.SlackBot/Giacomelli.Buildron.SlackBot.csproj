@@ -82,6 +82,8 @@
     <Compile Include="MessageHandlers\MessageHandlerService.cs" />
     <Compile Include="MessageHandlers\SortByMessageHandler.cs" />
     <Compile Include="MessageHandlers\ShellSortingAlgorithm.cs" />
+    <Compile Include="MessageHandlers\MoveCameraMessageHandler.cs" />
+    <Compile Include="MessageHandlers\QuitMessageHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
