@@ -8,7 +8,7 @@ namespace Giacomelli.Buildron.SlackBot
 	public class FilterByMessageHandler : RegexMessageHandlerBase
 	{
 		public FilterByMessageHandler(IModContext modContext, SlackService slackService)
-			: base("filter by (?<kind>\\S+) (?<value>.+)", modContext, slackService)
+			: base("filter by (?<kind>(status|text)) (?<value>.+)", modContext, slackService)
 		{
 		}
 
@@ -16,19 +16,29 @@ namespace Giacomelli.Buildron.SlackBot
 		{
 			get
 			{
-				return "filter by status failed|queued|running|success: filters the builds by specified status.";
+				return @"filter by
+				status failed|queued|running|success: filters the builds by specified status.
+				text <text>: filters the builds by specified text.";
 			}
 		}
 
 		protected override IRemoteControlCommand CreateCommand(Match match)
 		{
 			var cmd = new FilterBuildsRemoteControlCommand();
+			var kind = match.Groups["kind"].Value;
 			var value = match.Groups["value"].Value;
-			cmd.FailedEnabled = value.Equals("failed", StringComparison.OrdinalIgnoreCase);
-			cmd.QueuedEnabled = value.Equals("queued", StringComparison.OrdinalIgnoreCase);
-			cmd.RunningEnabled = value.Equals("running", StringComparison.OrdinalIgnoreCase);
-			cmd.SuccessEnabled = value.Equals("success", StringComparison.OrdinalIgnoreCase);
-			cmd.KeyWord = String.Empty;
+
+			if (kind.Equals("status", StringComparison.Ordinal))
+			{
+				cmd.FailedEnabled = value.Equals("failed", StringComparison.OrdinalIgnoreCase);
+				cmd.QueuedEnabled = value.Equals("queued", StringComparison.OrdinalIgnoreCase);
+				cmd.RunningEnabled = value.Equals("running", StringComparison.OrdinalIgnoreCase);
+				cmd.SuccessEnabled = value.Equals("success", StringComparison.OrdinalIgnoreCase);
+				cmd.KeyWord = String.Empty;
+			}
+			else {
+				cmd.KeyWord = value;
+			}
 
 			return cmd;
 		}
