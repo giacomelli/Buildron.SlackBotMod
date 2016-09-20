@@ -77,6 +77,9 @@
     <Compile Include="MessageHandlers\ResetFilterMessageHandler.cs" />
     <Compile Include="Serialization\SlackChannelResponse.cs" />
     <Compile Include="Serialization\SlackDirectMessageResponse.cs" />
+    <Compile Include="MessageHandlers\RegexMessageHandlerBase.cs" />
+    <Compile Include="MessageHandlers\HelpMessageHandler.cs" />
+    <Compile Include="MessageHandlers\MessageHandlerService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

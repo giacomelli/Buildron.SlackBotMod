@@ -32,12 +32,7 @@ namespace Giacomelli.Buildron.SlackBot
 				ReadPreferences();
 				ListenToBuildStatusChanged();
 
-				m_messageHandlers = new IMessageHandler[]
-				{
-					new FilterByMessageHandler(m_modContext, m_slack),
-					new ResetFilterMessageHandler(m_modContext, m_slack),
-					new ResetCameraMessageHandler(m_modContext, m_slack)
-				};
+				m_messageHandlers = MessageHandlerService.GetMessageHandlers(m_modContext, m_slack);
 
 				m_slack.MessageReceivedCallback += (msg) =>
 				{
@@ -99,7 +94,7 @@ namespace Giacomelli.Buildron.SlackBot
 
 			if (handledCount == 0)
 			{
-				m_slack.Respond("Sorry, I didn't understand what you said :(");
+				m_slack.Respond("Sorry, I didn't understand what you said :(. Try \"help\".");
 			}
 		}
 		#endregion

@@ -5,35 +5,36 @@ using Buildron.Domain.RemoteControls;
 
 namespace Giacomelli.Buildron.SlackBot
 {
-	public class ResetFilterMessageHandler : MessageHandlerBase
+	public class ResetFilterMessageHandler : RegexMessageHandlerBase
 	{
 		public ResetFilterMessageHandler(IModContext modContext, SlackService slackService)
-			: base(modContext, slackService)
+			: base("^reset filter$", modContext, slackService)
 		{
 		}
 
-		public override bool Process(Message message)
+		public override string Description
 		{
-			if (message.Text.Equals("reset filter", StringComparison.OrdinalIgnoreCase))
+			get
 			{
-				var cmd = new FilterBuildsRemoteControlCommand();
-				cmd.FailedEnabled = true;
-				cmd.QueuedEnabled = true;
-				cmd.RunningEnabled = true;
-				cmd.SuccessEnabled = true;
-				cmd.KeyWord = String.Empty;
-
-				UnityMainThreadDispatcher.Instance().Enqueue(() =>
-				{
-					ModContext.RemoteControl.ReceiveCommand(cmd);
-				});
-
-				Slack.Respond("Filter reseted. Now you see!");
-
-				return true;
+				return "reset filter: resets the builds filter.";
 			}
+		}
 
-			return false;
+		protected override IRemoteControlCommand CreateCommand(Match match)
+		{
+			var cmd = new FilterBuildsRemoteControlCommand();
+			cmd.FailedEnabled = true;
+			cmd.QueuedEnabled = true;
+			cmd.RunningEnabled = true;
+			cmd.SuccessEnabled = true;
+			cmd.KeyWord = String.Empty;
+
+			return cmd;
+		}
+	
+		protected override string CreateMessage(Match match)
+		{
+			return "Filter reseted. Now you see!";
 		}
 	}
 }

@@ -26,7 +26,7 @@ namespace Giacomelli.Buildron.SlackBot
 		#region Constructors
 		public SlackService(IModContext modContext)
 		{
-			m_modContext = Mod.Context;
+			m_modContext = modContext;
 			m_log = m_modContext.Log;
 
 			ReadPreferences();

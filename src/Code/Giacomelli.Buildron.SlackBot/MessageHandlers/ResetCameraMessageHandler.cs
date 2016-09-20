@@ -5,30 +5,29 @@ using Buildron.Domain.RemoteControls;
 
 namespace Giacomelli.Buildron.SlackBot
 {
-	public class ResetCameraMessageHandler : MessageHandlerBase
+	public class ResetCameraMessageHandler : RegexMessageHandlerBase
 	{
 		public ResetCameraMessageHandler(IModContext modContext, SlackService slackService)
-			: base(modContext, slackService)
+			: base("^reset camera$", modContext, slackService)
 		{
 		}
 
-		public override bool Process(Message message)
+		public override string Description
 		{
-			if (message.Text.Equals("reset camera", StringComparison.OrdinalIgnoreCase))
+			get
 			{
-				var cmd = new ResetCameraRemoteControlCommand();
-			
-				UnityMainThreadDispatcher.Instance().Enqueue(() =>
-				{
-					ModContext.RemoteControl.ReceiveCommand(cmd);
-				});
-
-				Slack.Respond("Ok, reseting camera.");
-
-				return true;
+				return "reset camera: resets the camera position.";
 			}
+		}
 
-			return false;
+		protected override IRemoteControlCommand CreateCommand(Match match)
+		{
+			return new ResetCameraRemoteControlCommand();
+		}
+
+		protected override string CreateMessage(Match match)
+		{
+			return "Ok, reseting camera.";
 		}
 	}
 }

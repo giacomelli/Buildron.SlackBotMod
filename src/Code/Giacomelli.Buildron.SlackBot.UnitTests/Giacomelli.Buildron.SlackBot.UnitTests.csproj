@@ -31,16 +31,38 @@
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="Buildron.ModSdk">
+      <HintPath>..\references\Buildron.ModSdk.dll</HintPath>
+    </Reference>
+    <Reference Include="Skahal.Unity.Scripts">
+      <HintPath>..\references\Skahal.Unity.Scripts.dll</HintPath>
+    </Reference>
+    <Reference Include="Skahal.Unity.Scripts.Externals">
+      <HintPath>..\references\Skahal.Unity.Scripts.Externals.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>..\references\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="Rhino.Mocks">
+      <HintPath>..\packages\RhinoMocks.4.0.0-alpha3\lib\net40\Rhino.Mocks.dll</HintPath>
+    </Reference>
+    <Reference Include="Buildron.ModSdk.Editor">
+      <HintPath>..\references\Buildron.ModSdk.Editor.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="acknowledgements.txt" />
+    <None Include="license.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Serialization\" />
     <Folder Include="Resources\" />
+    <Folder Include="MessageHandlers\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Serialization\SlackHandshakeResponseTest.cs" />
+    <Compile Include="MessageHandlers\MessageHandlerServiceTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Giacomelli.Buildron.SlackBot\Giacomelli.Buildron.SlackBot.csproj">
