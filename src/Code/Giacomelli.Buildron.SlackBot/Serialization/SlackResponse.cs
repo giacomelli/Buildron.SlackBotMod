@@ -7,6 +7,7 @@ namespace Giacomelli.Buildron.SlackBot
 		public string type;
 		public string text;
 		public string username;
+		public string channel;
 	}
 }
 

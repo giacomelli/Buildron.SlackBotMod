@@ -11,13 +11,13 @@ namespace Giacomelli.Buildron.SlackBot
 	public class BotController : MonoBehaviour
 	{
 		#region Fields
-		private static readonly Regex s_filterByRegex = new Regex("filter by (?<kind>\\S+) (?<value>.+)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 		private IModContext m_modContext;
 		private ISHLogStrategy m_log;
 		private bool m_notifyRunning;
 		private bool m_notifyFailed;
 		private bool m_notifySuccess;
 		private SlackService m_slack;
+		private IMessageHandler[] m_messageHandlers;
 		#endregion
 
 		#region Methods
@@ -26,12 +26,21 @@ namespace Giacomelli.Buildron.SlackBot
 			m_slack = new SlackService(Mod.Context);
 			m_modContext = Mod.Context;
 			m_log = m_modContext.Log;
-		
+
 			if (m_slack.CanSend)
 			{
 				ReadPreferences();
 				ListenToBuildStatusChanged();
-				m_slack.MessageReceivedCallback += (msg) => {
+
+				m_messageHandlers = new IMessageHandler[]
+				{
+					new FilterByMessageHandler(m_modContext, m_slack),
+					new ResetFilterMessageHandler(m_modContext, m_slack),
+					new ResetCameraMessageHandler(m_modContext, m_slack)
+				};
+
+				m_slack.MessageReceivedCallback += (msg) =>
+				{
 					RespondToMessage(msg);
 				};
 			}
@@ -51,42 +60,46 @@ namespace Giacomelli.Buildron.SlackBot
 			{
 				var b = e.Build;
 
+				if (b.Status == e.PreviousStatus)
+				{
+					return;
+				}
+
 				if ((m_notifyRunning && b.Status == BuildStatus.Running)
 					|| (m_notifyFailed && b.IsFailed())
 					|| (m_notifySuccess && b.IsSuccess()))
 				{
-					m_slack.Send("{0} - {1}: {2}", b.Configuration.Project.Name, b.Configuration.Name, b.Status.ToString().ToLowerInvariant());
+					var reason = b.Status == BuildStatus.Running
+								  ? ": {0}".With(b.LastChangeDescription)
+								  : string.Empty;
+					m_slack.SendToDefaultChannel(
+						"{0} - {1} {2} by {3} at {4:HH:mm}{5}".With(
+						b.Configuration.Project.Name,
+						b.Configuration.Name,
+						b.Status.ToString().ToLowerInvariant(),
+						b.TriggeredBy,
+						DateTime.Now,
+							reason));
 				}
 			};
 		}
 
-		void RespondToMessage(SlackMessage msg)
+		void RespondToMessage(Message msg)
 		{
-			var match = s_filterByRegex.Match(msg.Text);
+			var handledCount = 0;
 
-			if (match.Success)
+			foreach (var handler in m_messageHandlers)
 			{
-				var filterCmd = new FilterBuildsRemoteControlCommand();
-				var kind = match.Groups["kind"].Value;
-				var value = match.Groups["value"].Value;
-				filterCmd.FailedEnabled = value.Equals("failed", StringComparison.OrdinalIgnoreCase);
-				filterCmd.QueuedEnabled = value.Equals("queued", StringComparison.OrdinalIgnoreCase);
-				filterCmd.RunningEnabled = value.Equals("running", StringComparison.OrdinalIgnoreCase);
-				filterCmd.SuccessEnabled = value.Equals("success", StringComparison.OrdinalIgnoreCase);
-				filterCmd.KeyWord = String.Empty;
-
-				m_log.Debug("Remote control receiving command...");
-
-				UnityMainThreadDispatcher.Instance().Enqueue(() =>
+				if (handler.Process(msg))
 				{
-					m_modContext.RemoteControl.ReceiveCommand(filterCmd);
-				});
-
-				m_slack.Send("Ok, take a look on my screen right now! I'm filtering builds by {0} '{1}'. ", kind, value);
+					m_log.Debug("{0} has handled the message", handler.GetType().Name);
+					handledCount++;
+				}
 			}
-			else
+
+			if (handledCount == 0)
 			{
-				m_slack.Send("Sorry, I didn't understand what you said :(");
+				m_slack.Respond("Sorry, I didn't understand what you said :(");
 			}
 		}
 		#endregion

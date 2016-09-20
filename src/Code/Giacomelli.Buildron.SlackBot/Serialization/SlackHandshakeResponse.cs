@@ -6,9 +6,9 @@ namespace Giacomelli.Buildron.SlackBot
 	[Serializable]
 	public class SlackHandshakeResponse
 	{
-		public string url;
+		public string Url { get; private set; }
 
-		public SlackUserResponse self;
+		public SlackUserResponse Self { get; private set; }
 
 		public static SlackHandshakeResponse Parse(string json)
 		{
@@ -16,8 +16,8 @@ namespace Giacomelli.Buildron.SlackBot
 
 			return new SlackHandshakeResponse
 			{
-				url = data["url"] as string,
-				self = SlackUserResponse.Parse(data["self"] as Dictionary<string, object>)
+				Url = data["url"] as string,
+				Self = SlackUserResponse.Parse(data)
 			};
 		}
 	}	

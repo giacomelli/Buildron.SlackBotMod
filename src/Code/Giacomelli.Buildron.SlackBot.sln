@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Giacomelli.Buildron.SlackBot", "Giacomelli.Buildron.SlackBot\Giacomelli.Buildron.SlackBot.csproj", "{4BE1F3CC-7EDA-4F4E-ABA8-EADAF1601500}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Giacomelli.Buildron.SlackBot.UnitTests", "Giacomelli.Buildron.SlackBot.UnitTests\Giacomelli.Buildron.SlackBot.UnitTests.csproj", "{4ADC24C1-9662-4785-B132-76EFA6220DAE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +22,16 @@ Global
 		{4BE1F3CC-7EDA-4F4E-ABA8-EADAF1601500}.mac|Any CPU.Build.0 = mac|Any CPU
 		{4BE1F3CC-7EDA-4F4E-ABA8-EADAF1601500}.linux|Any CPU.ActiveCfg = linux|Any CPU
 		{4BE1F3CC-7EDA-4F4E-ABA8-EADAF1601500}.linux|Any CPU.Build.0 = linux|Any CPU
+		{4ADC24C1-9662-4785-B132-76EFA6220DAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4ADC24C1-9662-4785-B132-76EFA6220DAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4ADC24C1-9662-4785-B132-76EFA6220DAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4ADC24C1-9662-4785-B132-76EFA6220DAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4ADC24C1-9662-4785-B132-76EFA6220DAE}.win|Any CPU.ActiveCfg = Debug|Any CPU
+		{4ADC24C1-9662-4785-B132-76EFA6220DAE}.win|Any CPU.Build.0 = Debug|Any CPU
+		{4ADC24C1-9662-4785-B132-76EFA6220DAE}.mac|Any CPU.ActiveCfg = Debug|Any CPU
+		{4ADC24C1-9662-4785-B132-76EFA6220DAE}.mac|Any CPU.Build.0 = Debug|Any CPU
+		{4ADC24C1-9662-4785-B132-76EFA6220DAE}.linux|Any CPU.ActiveCfg = Debug|Any CPU
+		{4ADC24C1-9662-4785-B132-76EFA6220DAE}.linux|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

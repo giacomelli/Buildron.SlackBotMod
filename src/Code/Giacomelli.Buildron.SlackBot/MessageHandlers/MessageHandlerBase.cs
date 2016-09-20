@@ -19,7 +19,7 @@ namespace Giacomelli.Buildron.SlackBot
 
 		protected SlackService Slack { get; private set; }
 
-		public abstract bool Process(SlackMessage message);
+		public abstract bool Process(Message message);
 	}
 }
 

@@ -1,21 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Giacomelli.Buildron.SlackBot
 {
 	[Serializable]
 	public class SlackUserResponse
 	{
-		public string id;
-		public string name;
+		public string Id { get; private set; }
+		public string Name { get; private set; }
+		public IEnumerable<SlackChannelResponse> Channels { get; private set; }
+		public IEnumerable<SlackDirectMessageResponse> DMs { get; private set; }
 
 		internal static SlackUserResponse Parse(Dictionary<string, object> data)
-		{	
-			return new SlackUserResponse
+		{
+			var selfData = data["self"] as Dictionary<string, object>;
+
+			var r = new SlackUserResponse
 			{
-				 id = data["id"] as string,
-				 name = data["name"] as string
+				 Id = selfData["id"] as string,
+				 Name = selfData["name"] as string
 			};
+
+			r.Channels = SlackChannelResponse.ParseMany(data);
+			r.DMs = SlackDirectMessageResponse.ParseMany(data);
+
+			return r;
 		}
 	}
 }

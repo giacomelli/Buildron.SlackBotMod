@@ -3,7 +3,7 @@ namespace Giacomelli.Buildron.SlackBot
 {
 	public interface IMessageHandler
 	{
-		bool Process(SlackMessage message);
+		bool Process(Message message);
 	}
 }
 

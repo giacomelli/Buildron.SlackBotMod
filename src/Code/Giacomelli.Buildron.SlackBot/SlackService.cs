@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using Buildron.Domain.Mods;
 using Skahal.Logging;
@@ -19,7 +20,7 @@ namespace Giacomelli.Buildron.SlackBot
 		private string m_channel;
 		private SlackUserResponse m_bot;
 		private string m_messageToBotPrefix;
-		private Queue<SlackMessage> m_messagesToSend;
+		private Message m_messageToRespond;
 		#endregion
 
 		#region Constructors
@@ -27,7 +28,6 @@ namespace Giacomelli.Buildron.SlackBot
 		{
 			m_modContext = Mod.Context;
 			m_log = m_modContext.Log;
-			m_messagesToSend = new Queue<SlackMessage>();
 
 			ReadPreferences();
 			CanSend = !String.IsNullOrEmpty(m_slackKey);
@@ -39,14 +39,13 @@ namespace Giacomelli.Buildron.SlackBot
 			}
 
 			ListToUsersMessages();
-			//ProcessMessagesToSendQueue();
 		}
 
 		#endregion
 
 		#region Properties
 		public bool CanSend { get; private set; }
-		public Action<SlackMessage> MessageReceivedCallback { get; set; }
+		public Action<Message> MessageReceivedCallback { get; set; }
 		#endregion
 
 		private void ReadPreferences()
@@ -72,19 +71,19 @@ namespace Giacomelli.Buildron.SlackBot
 			{
 				m_log.Debug("Handshake response: {0}", get.text);
 				var handshake = SlackHandshakeResponse.Parse(get.text);
-				m_bot = handshake.self;
+				m_bot = handshake.Self;
 
 				if (m_bot == null)
 				{
 					throw new InvalidOperationException("Handshake response without bot.");
 				}
 
-				m_messageToBotPrefix = "<@{0}> ".With(m_bot.id);
+				m_messageToBotPrefix = "<@{0}> ".With(m_bot.Id);
 
-				m_log.Debug("Bot id: {0}", m_bot.id);
-				var wss = handshake.url;
+				m_log.Debug("Bot id: {0}", m_bot.Id);
+				var wss = handshake.Url;
 				wss = wss.Replace("\\", string.Empty);
-			    m_ws = new WebSocket(wss);
+				m_ws = new WebSocket(wss);
 
 				m_ws.OnOpen += (sender, e) =>
 				{
@@ -96,16 +95,14 @@ namespace Giacomelli.Buildron.SlackBot
 					m_log.Debug("Slack says: {0}", e.Data);
 					var response = JsonUtility.FromJson<SlackResponse>(e.Data);
 
-					if (response != null 
-					    && response.type.Equals("message") 
-					    && response.text.StartsWith(m_messageToBotPrefix, StringComparison.Ordinal)
-					    && !m_bot.name.Equals(response.username))
+					if (IsMessageToBot(response))
 					{
-						var msg = new SlackMessage
-						{
-							Text = response.text.Replace(m_messageToBotPrefix, string.Empty)
-						};
+						var msg = new Message(
+							response.text.Replace(m_messageToBotPrefix, string.Empty),
+							response.channel);
 						m_log.Debug("Message received: {0}", msg.Text);
+
+						m_messageToRespond = msg;
 
 						MessageReceivedCallback(msg);
 					}
@@ -125,58 +122,40 @@ namespace Giacomelli.Buildron.SlackBot
 			});
 		}
 
-		void ProcessMessagesToSendQueue()
+		bool IsMessageToBot(SlackResponse response)
 		{
-			SHCoroutine.Loop(
-				1,
-				() =>
-				{
-					if (m_messagesToSend.Count > 0)
-					{
-						var msg = m_messagesToSend.Dequeue();
-						
-						m_log.Debug("Sending message '{0}'...", msg.Text);
-						var url = "https://slack.com/api/chat.postMessage";
-						var data = new WWWForm();
-						data.AddField("token", m_slackKey);
-						data.AddField("channel", m_channel);
-						data.AddField("text", msg.Text);
-						data.AddField("username", "Buildron");
-						data.AddField("icon_url", "https://raw.githubusercontent.com/skahal/Buildron/master/docs/images/Buildron-logo-128x128.png");
-						var post = new WWW(url, data);
+			return response != null
+				&& response.type.Equals("message")
+				&& (
+				 	response.text.StartsWith(m_messageToBotPrefix, StringComparison.Ordinal)
+	   		     || m_bot.DMs.Any(dm => dm.Id == response.channel))
+				 && !m_bot.Name.Equals(response.username, StringComparison.OrdinalIgnoreCase);
+		}
 
-						SHCoroutine.WaitFor(() =>
-						{
-							return post.isDone;
-						},
-						() =>
-						{
-							m_log.Debug("Message sent.");
-						});
-					}
-				});
+		public void Respond(string msg)
+		{
+			Send(new Message(msg, m_messageToRespond));
+		}
+
+		public void SendToDefaultChannel(string msg)
+		{
+			Send(new Message(msg, m_channel));
 		}
 
 		/// <summary>
 		/// https://api.slack.com/methods/chat.postMessage
 		/// </summary>
-		public void Send(string message, params object[] args)
+		public void Send(Message msg)
 		{
-			var formattedMsg = message.With(args);
-			m_log.Debug("Enqueuing message '{0}'", formattedMsg);
+			m_log.Debug("Enqueuing message '{0}'", msg.Text);
 
 			UnityMainThreadDispatcher.Instance().Enqueue(() =>
 			{
-				var msg = new SlackMessage
-				{
-					Text = formattedMsg
-				};
-
 				m_log.Debug("Sending message '{0}'...", msg.Text);
 				var url = "https://slack.com/api/chat.postMessage";
 				var data = new WWWForm();
 				data.AddField("token", m_slackKey);
-				data.AddField("channel", m_channel);
+				data.AddField("channel", msg.Channel ?? m_channel);
 				data.AddField("text", msg.Text);
 				data.AddField("username", "Buildron");
 				data.AddField("icon_url", "https://raw.githubusercontent.com/skahal/Buildron/master/docs/images/Buildron-logo-128x128.png");

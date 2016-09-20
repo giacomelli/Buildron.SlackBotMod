@@ -64,15 +64,19 @@
     <Compile Include="Mod.cs" />
     <Compile Include="BotController.cs" />
     <Compile Include="SlackService.cs" />
-    <Compile Include="SlackMessage.cs" />
+    <Compile Include="Message.cs" />
     <Compile Include="Serialization\SlackResponse.cs" />
     <Compile Include="Serialization\SlackHandshakeResponse.cs" />
     <Compile Include="Serialization\SlackUserResponse.cs" />
-    <Compile Include="MiniJson.cs" />
-    <Compile Include="UnityMainThreadDispatcher.cs" />
     <Compile Include="IMessageHandler.cs" />
-    <Compile Include="MessageHandlers\FiterByMessageHandler.cs" />
+    <Compile Include="MessageHandlers\FilterByMessageHandler.cs" />
     <Compile Include="MessageHandlers\MessageHandlerBase.cs" />
+    <Compile Include="Serialization\MiniJson.cs" />
+    <Compile Include="Third\UnityMainThreadDispatcher.cs" />
+    <Compile Include="MessageHandlers\ResetCameraMessageHandler.cs" />
+    <Compile Include="MessageHandlers\ResetFilterMessageHandler.cs" />
+    <Compile Include="Serialization\SlackChannelResponse.cs" />
+    <Compile Include="Serialization\SlackDirectMessageResponse.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -80,6 +84,7 @@
   <ItemGroup>
     <Folder Include="Serialization\" />
     <Folder Include="MessageHandlers\" />
+    <Folder Include="Third\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="..\references\Buildron.Mod.targets" />
