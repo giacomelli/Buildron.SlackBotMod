@@ -7,17 +7,17 @@ else
   ZIP_FOLDER="../../"
 fi
 
-echo ================[ Packing Giacomelli.Buildron.SlackBot for $1
+echo ================[ Packing Giacomelli.Buildron.SlackBotMod for $1
 ./build.sh $1
 
-echo ================[ Compressing Giacomelli.Buildron.SlackBot
+echo ================[ Compressing Giacomelli.Buildron.SlackBotMod
 pushd $PWD/../build/$1/$MODS_FOLDER >/dev/null
-zip -vrq $ZIP_FOLDER/Giacomelli.Buildron.SlackBot.$1.zip Giacomelli.Buildron.SlackBot -x "*.DS_Store" -x "*__instances__*" -x "*.pdb" -x "*.mdb"
+zip -vrq $ZIP_FOLDER/Giacomelli.Buildron.SlackBotMod.$1.zip Giacomelli.Buildron.SlackBotMod -x "*.DS_Store" -x "*__instances__*" -x "*.pdb" -x "*.mdb"
 popd >/dev/null
 
-echo ================[ Giacomelli.Buildron.SlackBot package .zip available at build folder:
+echo ================[ Giacomelli.Buildron.SlackBotMod package .zip available at build folder:
 pushd ../build >/dev/null
-ls Giacomelli.Buildron.SlackBot.$1.zip
+ls Giacomelli.Buildron.SlackBotMod.$1.zip
 popd >/dev/null
 
-echo ================[ Giacomelli.Buildron.SlackBot pack done.
+echo ================[ Giacomelli.Buildron.SlackBotMod pack done.

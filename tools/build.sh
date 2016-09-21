@@ -15,14 +15,14 @@ else
   exit
 fi
 
-echo ================[ Building Giacomelli.Buildron.SlackBot for $1
-echo ================[ Compiling Giacomelli.Buildron.SlackBot C# class library...
-xbuild ../src/Code/Giacomelli.Buildron.SlackBot.sln /verbosity:quiet /t:rebuild /p:Configuration=$1 >/dev/null
+echo ================[ Building Giacomelli.Buildron.SlackBotMod for $1
+echo ================[ Compiling Giacomelli.Buildron.SlackBotMod C# class library...
+xbuild ../src/Code/Giacomelli.Buildron.SlackBotMod.sln /verbosity:quiet /t:rebuild /p:Configuration=$1 >/dev/null
 
-echo ================[ Starting Giacomelli.Buildron.SlackBot asset building...
-/Applications/Unity/Unity.app/Contents/MacOS/Unity -projectPath $PWD/../src/Unity/Giacomelli.Buildron.SlackBot -quit -batchmode -executeMethod ModBuilder.BuildFromCommandLine $PWD/../build/$1/$MODS_FOLDER $BUILD_TARGET
+echo ================[ Starting Giacomelli.Buildron.SlackBotMod asset building...
+/Applications/Unity/Unity.app/Contents/MacOS/Unity -projectPath $PWD/../src/Unity/Giacomelli.Buildron.SlackBotMod -quit -batchmode -executeMethod ModBuilder.BuildFromCommandLine $PWD/../build/$1/$MODS_FOLDER $BUILD_TARGET
 
 #echo 'Logs from build'
 #cat ~/Library/Logs/Unity/Editor.log
 
-echo ================[  Build Giacomelli.Buildron.SlackBot done.
+echo ================[  Build Giacomelli.Buildron.SlackBotMod done.
