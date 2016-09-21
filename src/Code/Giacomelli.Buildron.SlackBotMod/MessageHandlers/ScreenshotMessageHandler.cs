@@ -29,7 +29,7 @@ namespace Giacomelli.Buildron.SlackBotMod
 		{
 			UnityMainThreadDispatcher.Instance().Enqueue(() =>
 			{
-				var filepath = Path.Combine(Application.dataPath, "Buildron-{0:yyyyMMdd-HHmmss}.png".With(DateTime.Now));
+				var filepath = Path.Combine(Application.dataPath, "Buildron-screenshot.png");
 				Log.Debug("Saving screenshot to {0}...", filepath);
 				Application.CaptureScreenshot(filepath, 2);
 
