@@ -30,6 +30,7 @@ Your team can be notified by Buildron about builds status changed. In the mod pr
 
 ### Filter builds
 Filter buils by status or text.
+
 ![](docs/images/Buildron-SlackBotMod-filter-by.png)
 
 ### Reset filter
@@ -58,7 +59,7 @@ Take a screenshot of current Buildron state.
 ![](docs/images/Buildron-SlackBotMod-take-screenshot.png)
 
 
-> You can talk with Buildron bot in a specified channel choosed on mod preferens or directly on his direct message channel.
+> You can talk with Buildron bot in a specified channel choosed on mod preferences or on its direct message channel.
 
 ### FAQ
 * Do you want to know more available Buildron bot messages?
