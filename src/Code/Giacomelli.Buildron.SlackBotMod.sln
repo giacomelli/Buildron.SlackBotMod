@@ -1,4 +1,3 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
@@ -10,28 +9,32 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		linux|Any CPU = linux|Any CPU
+		mac|Any CPU = mac|Any CPU
 		Release|Any CPU = Release|Any CPU
 		win|Any CPU = win|Any CPU
-		mac|Any CPU = mac|Any CPU
-		linux|Any CPU = linux|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4BE1F3CC-7EDA-4F4E-ABA8-EADAF1601500}.win|Any CPU.ActiveCfg = win|Any CPU
-		{4BE1F3CC-7EDA-4F4E-ABA8-EADAF1601500}.win|Any CPU.Build.0 = win|Any CPU
-		{4BE1F3CC-7EDA-4F4E-ABA8-EADAF1601500}.mac|Any CPU.ActiveCfg = mac|Any CPU
-		{4BE1F3CC-7EDA-4F4E-ABA8-EADAF1601500}.mac|Any CPU.Build.0 = mac|Any CPU
+		{4BE1F3CC-7EDA-4F4E-ABA8-EADAF1601500}.Debug|Any CPU.ActiveCfg = win|Any CPU
+		{4BE1F3CC-7EDA-4F4E-ABA8-EADAF1601500}.Debug|Any CPU.Build.0 = win|Any CPU
 		{4BE1F3CC-7EDA-4F4E-ABA8-EADAF1601500}.linux|Any CPU.ActiveCfg = linux|Any CPU
 		{4BE1F3CC-7EDA-4F4E-ABA8-EADAF1601500}.linux|Any CPU.Build.0 = linux|Any CPU
+		{4BE1F3CC-7EDA-4F4E-ABA8-EADAF1601500}.mac|Any CPU.ActiveCfg = mac|Any CPU
+		{4BE1F3CC-7EDA-4F4E-ABA8-EADAF1601500}.mac|Any CPU.Build.0 = mac|Any CPU
+		{4BE1F3CC-7EDA-4F4E-ABA8-EADAF1601500}.Release|Any CPU.ActiveCfg = win|Any CPU
+		{4BE1F3CC-7EDA-4F4E-ABA8-EADAF1601500}.Release|Any CPU.Build.0 = win|Any CPU
+		{4BE1F3CC-7EDA-4F4E-ABA8-EADAF1601500}.win|Any CPU.ActiveCfg = win|Any CPU
+		{4BE1F3CC-7EDA-4F4E-ABA8-EADAF1601500}.win|Any CPU.Build.0 = win|Any CPU
 		{4ADC24C1-9662-4785-B132-76EFA6220DAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4ADC24C1-9662-4785-B132-76EFA6220DAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4ADC24C1-9662-4785-B132-76EFA6220DAE}.linux|Any CPU.ActiveCfg = Debug|Any CPU
+		{4ADC24C1-9662-4785-B132-76EFA6220DAE}.linux|Any CPU.Build.0 = Debug|Any CPU
+		{4ADC24C1-9662-4785-B132-76EFA6220DAE}.mac|Any CPU.ActiveCfg = Debug|Any CPU
+		{4ADC24C1-9662-4785-B132-76EFA6220DAE}.mac|Any CPU.Build.0 = Debug|Any CPU
 		{4ADC24C1-9662-4785-B132-76EFA6220DAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4ADC24C1-9662-4785-B132-76EFA6220DAE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4ADC24C1-9662-4785-B132-76EFA6220DAE}.win|Any CPU.ActiveCfg = Debug|Any CPU
 		{4ADC24C1-9662-4785-B132-76EFA6220DAE}.win|Any CPU.Build.0 = Debug|Any CPU
-		{4ADC24C1-9662-4785-B132-76EFA6220DAE}.mac|Any CPU.ActiveCfg = Debug|Any CPU
-		{4ADC24C1-9662-4785-B132-76EFA6220DAE}.mac|Any CPU.Build.0 = Debug|Any CPU
-		{4ADC24C1-9662-4785-B132-76EFA6220DAE}.linux|Any CPU.ActiveCfg = Debug|Any CPU
-		{4ADC24C1-9662-4785-B132-76EFA6220DAE}.linux|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
